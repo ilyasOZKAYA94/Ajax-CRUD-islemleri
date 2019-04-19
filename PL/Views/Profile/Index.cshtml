@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="panel panel-success" style="margin-top:20px;">
+    <div class="panel-heading">
+        <p>Ne Düşünüyorsun ???</p>
+    </div>
+    <div class="panel-body form-group" style="text-align:center">
+        <input id="title" type="text" style="width:500px;" placeholder="Başlık Giriniz..." /><br /><label id="lblKarakterSayisi"></label><br />
+        <textarea id="content" style="width:500px;height:100px;"></textarea><br /><label id="lblicerikKrkterSayisi"></label>
+    </div>
+    <div class="panel-footer" style="text-align:center">
+        <button onclick="post()" id="btn" class="btn btn-success">Paylaş</button>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        @Html.Partial("MyPost")
+    </div>
+</div>
+
+
+<script>
+    function post() {
+        var data = {
+           title : $('#title').val(),
+           content : $('#content').val()
+        };
+        $.ajax({
+            type: "POST",
+            url: "/Profile/AddPost",
+            data: data,
+            success: function (d) {
+                if (d.success == true) {
+                    alert("Paylaşım Başarılı.");
+                    location.href = "/Profile/Index";
+                }
+                else {
+                    alert("İşlem Başarısız!");
+                }
+                
+            },
+            error: function (e) {
+                alert("Connection Failed!");
+            }
+        });
+        
+    }
+
+
+
+    $(document).ready(function () {
+        var KarakterSayisi = 0;
+        $("#title").keyup(function () {
+            KarakterSayisi = $("#title").val().length;
+            $("#lblKarakterSayisi").html(100-KarakterSayisi + " Karakteriniz kaldı.");
+        });
+    });
+
+    $(document).ready(function () {
+        var KarakterSayisi = 0;
+        $("#content").keyup(function () {
+            KarakterSayisi = $("#content").val().length;
+            $("#lblicerikKrkterSayisi").html(999 - KarakterSayisi + " Karakteriniz kaldı.");
+        });
+    });
+ 
+</script>
+

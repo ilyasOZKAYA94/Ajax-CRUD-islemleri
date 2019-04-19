@@ -1,0 +1,32 @@
+﻿@{
+                /**/
+
+                ViewBag.Title = "Home Page";
+}
+<div style="height:20px;">
+
+</div>
+
+<div class="row" style="min-height:500px;">
+    <div class="container">
+        @foreach (var Post in ViewBag.Post)
+        {
+            <div class="jumbotron">
+                <div class="container">
+                    <div class="col-md-2" style="text-align:center">
+                        <img src="~/images/@Post.UserPıcture" style="width:100px;" /><br /><br />
+                        @Post.UserName
+                    </div>
+                    <div class="col-md-9">
+                        <div>
+                            <p>@Post.PostTitle</p><br />
+                        </div>
+                        <br /><br />
+                        @Post.PostContent<br />
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
